@@ -1,0 +1,21 @@
+
+[2025-03-24T16:47:19.949Z] Setting up with algorithm: RS256
+[2025-03-24T16:47:20.181Z] Key generation took: 230.89 ms
+[2025-03-24T16:47:20.186Z] JWT signing with RS256 took: 3.90 ms
+[2025-03-24T16:47:20.188Z] JWT verification with RS256 took: 1.36 ms
+[2025-03-24T16:47:20.188Z] =========================================
+[2025-03-24T16:47:20.188Z] Setting up with algorithm: ES256
+[2025-03-24T16:47:20.189Z] Key generation took: 0.88 ms
+[2025-03-24T16:47:20.191Z] JWT signing with ES256 took: 0.98 ms
+[2025-03-24T16:47:20.191Z] JWT verification with ES256 took: 0.51 ms
+[2025-03-24T16:47:20.192Z] =========================================
+[2025-03-24T16:47:20.192Z] Setting up with algorithm: EdDSA
+[2025-03-24T16:47:20.193Z] Key generation took: 0.62 ms
+[2025-03-24T16:47:20.194Z] JWT signing with EdDSA took: 0.52 ms
+[2025-03-24T16:47:20.195Z] JWT verification with EdDSA took: 0.41 ms
+[2025-03-24T16:47:20.195Z] =========================================
+[2025-03-24T16:47:20.196Z] Setting up with algorithm: RS512
+[2025-03-24T16:47:20.438Z] Key generation took: 242.10 ms
+[2025-03-24T16:47:20.440Z] JWT signing with RS512 took: 1.50 ms
+[2025-03-24T16:47:20.440Z] JWT verification with RS512 took: 0.33 ms
+[2025-03-24T16:47:20.441Z] =========================================
