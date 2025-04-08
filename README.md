@@ -7,6 +7,23 @@ run:
 npm start
 ```
 
+to get:
+
+```
+┌─────────┬─────────────┬─────────────────┬──────────────────────┐
+│ (index) │ Algorithm   │ JWT byte length │ Type                 │
+├─────────┼─────────────┼─────────────────┼──────────────────────┤
+│ 0       │ 'HS256'     │ '172 Bytes'     │ 'Pre-Q | Symmetric'  │
+│ 1       │ 'RS256'     │ '471 Bytes'     │ 'Pre-Q | Asymmetric' │
+│ 2       │ 'RS512'     │ '812 Bytes'     │ 'Pre-Q | Asymmetric' │
+│ 3       │ 'ES256'     │ '224 Bytes'     │ 'Pre-Q | Asymmetric' │
+│ 4       │ 'EdDSA'     │ '215 Bytes'     │ 'Pre-Q | Asymmetric' │
+│ 5       │ 'ML-DSA-44' │ '3362 Bytes'    │ 'PQS | Asymmetric'   │
+│ 6       │ 'ML-DSA-65' │ '4547 Bytes'    │ 'PQS | Asymmetric'   │
+│ 7       │ 'ML-DSA-87' │ '6305 Bytes'    │ 'PQS | Asymmetric'   │
+└─────────┴─────────────┴─────────────────┴──────────────────────┘
+```
+
 ### What is this?
 
 One of the Lead devs heard that some of the Post-Quantum safe candidates were:
