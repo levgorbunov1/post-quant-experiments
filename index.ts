@@ -1,31 +1,16 @@
 // test.js
 import { createHS256JWT } from "./src/jwt/algorithms/jwtSymmetric";
-import { createFIPS204JWT } from "./src/jwt/algorithms/jwtAsymmetricPQS";
+import { createPQCJWT } from "./src/jwt/algorithms/jwtAsymmetricPQS";
 import { payload } from "./src/jwt/payload";
 import { random32ByteBase64Encoded } from "./src/jwt/secret";
 import { createAsymmetricJWT } from "./src/jwt/algorithms/jwtAsymmetric";
-import type { DilithiumAlgorithms } from "./src/jwt/algorithms/types";
+import type { PQCAlgorithm } from "./src/jwt/algorithms/types";
 import {
   generateRSA256KeyPair,
   generateRSA512KeyPair,
   generateEC256KeyPair,
   generateEd25519KeyPair,
 } from "./src/jwt/secret";
-
-const dilithiumAlgorithmns: DilithiumAlgorithms[] = [
-  "ML-DSA-44",
-  "ML-DSA-65",
-  "ML-DSA-87",
-];
-
-const dilithiumResults = dilithiumAlgorithmns.map((alg) => {
-  const algResults = createFIPS204JWT(payload, alg);
-  return {
-    Algorithm: alg,
-    "JWT byte length": `${algResults.size} Bytes`,
-    Type: "PQS | Asymmetric",
-  };
-});
 
 const hs256Results = createHS256JWT(payload, random32ByteBase64Encoded);
 
@@ -48,14 +33,37 @@ const jwtAssymResults = [
   };
 });
 
-const results = [
+const PQCAlgorithmns: PQCAlgorithm[] = [
+  "Dilithium2",
+  "Dilithium3",
+  "Dilithium5",
+  "Falcon512",
+  "Falcon1024"
+];
+
+const PQCResults = Promise.all(
+  PQCAlgorithmns.map(async (alg) => {
+    const algResults = await createPQCJWT(payload, alg);
+    return {
+      Algorithm: alg,
+      "JWT byte length": `${algResults.size} Bytes`,
+      Type: "PQS | Asymmetric",
+    };
+  })
+);
+
+PQCResults.then((data) => { 
+  data.forEach(item => console.log(item));
+
+  const results = [
   {
     Algorithm: "HS256",
     "JWT byte length": `${hs256Results.size} Bytes`,
     Type: "Pre-Q | Symmetric",
   },
   ...jwtAssymResults,
-  ...dilithiumResults,
+  ...data,
 ];
 
 console.table(results);
+});

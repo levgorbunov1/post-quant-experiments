@@ -19,6 +19,11 @@
   "dependencies": {
     "@noble/ed25519": "^2.2.3",
     "@noble/post-quantum": "^0.4.0",
-    "base64url": "^3.0.1"
+    "base64url": "^3.0.1",
+    "@dashlane/pqc-sign-dilithium2-node": "^1.0.0",
+    "@dashlane/pqc-sign-dilithium3-node": "^1.0.0",
+    "@dashlane/pqc-sign-dilithium5-node": "^1.0.0",
+    "@dashlane/pqc-sign-falcon-512-node": "^1.0.0",
+    "@dashlane/pqc-sign-falcon-1024-node": "^1.0.0"
   }
 }

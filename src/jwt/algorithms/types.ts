@@ -1,2 +1,3 @@
-const algorithms = ["ML-DSA-44", "ML-DSA-65", "ML-DSA-87"] as const;
-export type DilithiumAlgorithms = (typeof algorithms)[number];
+type DilithiumAlgorithm = "Dilithium2" | "Dilithium3" | "Dilithium5";
+type FalconAlgorithm = "Falcon512" | "Falcon1024"
+export type PQCAlgorithm = DilithiumAlgorithm | FalconAlgorithm
