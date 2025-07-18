@@ -53,8 +53,6 @@ const PQCResults = Promise.all(
 );
 
 PQCResults.then((data) => { 
-  data.forEach(item => console.log(item));
-
   const results = [
   {
     Algorithm: "HS256",
