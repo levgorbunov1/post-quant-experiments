@@ -54,23 +54,6 @@ There's also falcon, which seems to have a far far better sig size.
 
 We use this library here: https://github.com/Dashlane/pqc.js/
 
-### What should I use?
-
-┌─────────┬──────────────┬─────────────────┬──────────────────────┐
-│ (index) │ Algorithm    │ JWT byte length │ Type                 │
-├─────────┼──────────────┼─────────────────┼──────────────────────┤
-│ 0       │ 'HS256'      │ '172 Bytes'     │ 'Pre-Q | Symmetric'  │
-│ 1       │ 'RS256'      │ '471 Bytes'     │ 'Pre-Q | Asymmetric' │
-│ 2       │ 'RS512'      │ '812 Bytes'     │ 'Pre-Q | Asymmetric' │
-│ 3       │ 'ES256'      │ '225 Bytes'     │ 'Pre-Q | Asymmetric' │
-│ 4       │ 'EdDSA'      │ '215 Bytes'     │ 'Pre-Q | Asymmetric' │
-│ 5       │ 'Dilithium2' │ '3363 Bytes'    │ 'PQS | Asymmetric'   │
-│ 6       │ 'Dilithium3' │ '4527 Bytes'    │ 'PQS | Asymmetric'   │
-│ 7       │ 'Dilithium5' │ '6263 Bytes'    │ 'PQS | Asymmetric'   │
-│ 8       │ 'Falcon512'  │ '1013 Bytes'    │ 'PQS | Asymmetric'   │
-│ 9       │ 'Falcon1024' │ '1838 Bytes'    │ 'PQS | Asymmetric'   │
-└─────────┴──────────────┴─────────────────┴──────────────────────┘
-
 ### What's the back of the envalope conclusion
 
 Falcon looks promising and has a smaller token size than Dilithium. Token size is important because of the 8k character limit on URLs, or the 4kb cookie limit.
