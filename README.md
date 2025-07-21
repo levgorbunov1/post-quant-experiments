@@ -36,18 +36,18 @@ We use this library here: https://github.com/Dashlane/pqc.js/
 
 ### Which algorithm should I use?
 
-| Algorithm  | JWT byte length | Type  | Keygen time | Sign time | Verify time | Total time |         |
-| ---------- | --------------- | ----- | ----------- | --------- | ----------- | ---------- | ------- |
-| HS256      | 172 Bytes       | Pre-Q | Symmetric   | N/A       | 0.13ms      | 0.13ms     | 0.26ms  |
-| RS256      | 471 Bytes       | Pre-Q | Asymmetric  | 1090ms    | 0.94ms      | 0.15ms     | 1091ms  |
-| RS512      | 812 Bytes       | Pre-Q | Asymmetric  | 621ms     | 2.65ms      | 0.11ms     | 624ms   |
-| ES256      | 225 Bytes       | Pre-Q | Asymmetric  | 812ms     | 0.24ms      | 0.10ms     | 812ms   |
-| EdDSA      | 215 Bytes       | Pre-Q | Asymmetric  | 1423ms    | 0.32ms      | 0.09ms     | 1424ms  |
-| Dilithium2 | 3363 Bytes      | PQS   | Asymmetric  | 1.03ms    | 0.53ms      | 0.31ms     | 1.87ms  |
-| Dilithium3 | 4527 Bytes      | PQS   | Asymmetric  | 1.46ms    | 0.85ms      | 0.25ms     | 2.56ms  |
-| Dilithium5 | 6263 Bytes      | PQS   | Asymmetric  | 1.25ms    | 0.76ms      | 0.40ms     | 2.41ms  |
-| Falcon512  | 1014 Bytes      | PQS   | Asymmetric  | 12.31ms   | 4.62ms      | 0.12ms     | 17.05ms |
-| Falcon1024 | 1839 Bytes      | PQS   | Asymmetric  | 20.53ms   | 8.78ms      | 0.21ms     | 29.52ms |
+| Algorithm  | JWT byte length | Type                | Keygen time | Sign time | Verify time | Total time |
+| ---------- | --------------- | ------------------- | ----------- | --------- | ----------- | ---------- |
+| HS256      | 172 Bytes       | Pre-Q \| Symmetric  | N/A         | 0.13 ms   | 0.13 ms     | 0.26 ms    |
+| RS256      | 471 Bytes       | Pre-Q \| Asymmetric | 1090.39 ms  | 0.94 ms   | 0.15 ms     | 1091.48 ms |
+| RS512      | 812 Bytes       | Pre-Q \| Asymmetric | 620.8 ms    | 2.65 ms   | 0.11 ms     | 623.56 ms  |
+| ES256      | 225 Bytes       | Pre-Q \| Asymmetric | 811.6 ms    | 0.24 ms   | 0.10 ms     | 811.94 ms  |
+| EdDSA      | 215 Bytes       | Pre-Q \| Asymmetric | 1423.3 ms   | 0.32 ms   | 0.09 ms     | 1423.71 ms |
+| Dilithium2 | 3363 Bytes      | PQS \| Asymmetric   | 1.03 ms     | 0.53 ms   | 0.31 ms     | 1.87 ms    |
+| Dilithium3 | 4527 Bytes      | PQS \| Asymmetric   | 1.46 ms     | 0.85 ms   | 0.25 ms     | 2.56 ms    |
+| Dilithium5 | 6263 Bytes      | PQS \| Asymmetric   | 1.25 ms     | 0.76 ms   | 0.40 ms     | 2.41 ms    |
+| Falcon512  | 1014 Bytes      | PQS \| Asymmetric   | 12.31 ms    | 4.62 ms   | 0.12 ms     | 17.05 ms   |
+| Falcon1024 | 1839 Bytes      | PQS \| Asymmetric   | 20.53 ms    | 8.78 ms   | 0.21 ms     | 29.52 ms   |
 
 ### What's the back of the envalope conclusion
 
