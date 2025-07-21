@@ -2,28 +2,8 @@
 
 ### Get a table
 
-run:
 ```bash
 npm start
-```
-
-to get:
-
-```
-┌─────────┬──────────────┬─────────────────┬──────────────────────┬─────────────┬───────────┬─────────────┬─────────────┐
-│ (index) │ Algorithm    │ JWT byte length │ Type                 │ Keygen time │ Sign time │ Verify time │ Total time  │
-├─────────┼──────────────┼─────────────────┼──────────────────────┼─────────────┼───────────┼─────────────┼─────────────┤
-│ 0       │ 'HS256'      │ '172 Bytes'     │ 'Pre-Q | Symmetric'  │ 'N/A'       │ '0.13ms'  │ '0.13ms'    │ '0.26ms'    │
-│ 1       │ 'RS256'      │ '471 Bytes'     │ 'Pre-Q | Asymmetric' │ '1090.39ms' │ '0.94ms'  │ '0.15ms'    │ '1091.48ms' │
-│ 2       │ 'RS512'      │ '812 Bytes'     │ 'Pre-Q | Asymmetric' │ '620.8ms'   │ '2.65ms'  │ '0.11ms'    │ '623.56ms'  │
-│ 3       │ 'ES256'      │ '225 Bytes'     │ 'Pre-Q | Asymmetric' │ '811.6ms'   │ '0.24ms'  │ '0.1ms'     │ '811.94ms'  │
-│ 4       │ 'EdDSA'      │ '215 Bytes'     │ 'Pre-Q | Asymmetric' │ '1423.3ms'  │ '0.32ms'  │ '0.09ms'    │ '1423.71ms' │
-│ 5       │ 'Dilithium2' │ '3363 Bytes'    │ 'PQS | Asymmetric'   │ '1.03ms'    │ '0.53ms'  │ '0.31ms'    │ '1.87ms'    │
-│ 6       │ 'Dilithium3' │ '4527 Bytes'    │ 'PQS | Asymmetric'   │ '1.46ms'    │ '0.85ms'  │ '0.25ms'    │ '2.56ms'    │
-│ 7       │ 'Dilithium5' │ '6263 Bytes'    │ 'PQS | Asymmetric'   │ '1.25ms'    │ '0.76ms'  │ '0.4ms'     │ '2.41ms'    │
-│ 8       │ 'Falcon512'  │ '1014 Bytes'    │ 'PQS | Asymmetric'   │ '12.31ms'   │ '4.62ms'  │ '0.12ms'    │ '17.05ms'   │
-│ 9       │ 'Falcon1024' │ '1839 Bytes'    │ 'PQS | Asymmetric'   │ '20.53ms'   │ '8.78ms'  │ '0.21ms'    │ '29.52ms'   │
-└─────────┴──────────────┴─────────────────┴──────────────────────┴─────────────┴───────────┴─────────────┴─────────────┘
 ```
 
 ### What is this?
@@ -54,8 +34,25 @@ There's also falcon, which seems to have a far far better sig size.
 
 We use this library here: https://github.com/Dashlane/pqc.js/
 
+### Which algorithm should I use?
+
+| Algorithm  | JWT byte length | Type  | Keygen time | Sign time | Verify time | Total time |         |
+| ---------- | --------------- | ----- | ----------- | --------- | ----------- | ---------- | ------- |
+| HS256      | 172 Bytes       | Pre-Q | Symmetric   | N/A       | 0.13ms      | 0.13ms     | 0.26ms  |
+| RS256      | 471 Bytes       | Pre-Q | Asymmetric  | 1090ms    | 0.94ms      | 0.15ms     | 1091ms  |
+| RS512      | 812 Bytes       | Pre-Q | Asymmetric  | 621ms     | 2.65ms      | 0.11ms     | 624ms   |
+| ES256      | 225 Bytes       | Pre-Q | Asymmetric  | 812ms     | 0.24ms      | 0.10ms     | 812ms   |
+| EdDSA      | 215 Bytes       | Pre-Q | Asymmetric  | 1423ms    | 0.32ms      | 0.09ms     | 1424ms  |
+| Dilithium2 | 3363 Bytes      | PQS   | Asymmetric  | 1.03ms    | 0.53ms      | 0.31ms     | 1.87ms  |
+| Dilithium3 | 4527 Bytes      | PQS   | Asymmetric  | 1.46ms    | 0.85ms      | 0.25ms     | 2.56ms  |
+| Dilithium5 | 6263 Bytes      | PQS   | Asymmetric  | 1.25ms    | 0.76ms      | 0.40ms     | 2.41ms  |
+| Falcon512  | 1014 Bytes      | PQS   | Asymmetric  | 12.31ms   | 4.62ms      | 0.12ms     | 17.05ms |
+| Falcon1024 | 1839 Bytes      | PQS   | Asymmetric  | 20.53ms   | 8.78ms      | 0.21ms     | 29.52ms |
+
 ### What's the back of the envalope conclusion
 
 Falcon looks promising and has a smaller token size than Dilithium. Token size is important because of the 8k character limit on URLs, or the 4kb cookie limit.
 
-We might be interested in a forward look in that area and ask if there are implications for the use of JWTs.
+In terms of token generation speed, PQC algorithms seem to outperform pre-quantum algorithms, with the greatest difference coming from the key generation time. Out of the PQC algorithms, Dilithium is significantly faster than Falcon.
+
+We might be interested in a forward look in this area and ask if there are implications for the use of JWTs.
