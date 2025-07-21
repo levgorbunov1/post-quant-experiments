@@ -54,6 +54,21 @@ There's also falcon, which seems to have a far far better sig size.
 
 We use this library here: https://github.com/Dashlane/pqc.js/
 
+### What should I use?
+
+| Algorithm  | Speed     | Key size                        | Sig size           | Created in | Popularized in | Post-quantum? |
+| ---------- | --------- | ------------------------------- | ------------------ | ---------- | -------------- | ------------- |
+| HS256      | Very Fast | Small (e.g., 32B symmetric key) | Small (JWT \~172B) | 2010s      | 2010s          | No            |
+| RS256      | Slow      | \~2-3KB                         | \~256B             | 1970s      | 1990s          | No            |
+| RS512      | Slow      | \~3KB                           | \~512B             | 1970s      | 1990s          | No            |
+| ES256      | Slow      | \~64B (ECC)                     | \~64B              | 2000s      | 2010s          | No            |
+| EdDSA      | Slow      | \~32B (Ed25519)                 | \~64B              | 2011       | 2016           | No            |
+| Dilithium2 | Fast      | \~3.3KB                         | \~1KB              | 2010s      | 2020s          | Yes           |
+| Dilithium3 | Fast      | \~4.5KB                         | \~1KB              | 2010s      | 2020s          | Yes           |
+| Dilithium5 | Fast      | \~6.2KB                         | \~1KB              | 2010s      | 2020s          | Yes           |
+| Falcon512  | Moderate  | \~1KB                           | \~1KB              | 2010s      | 2020s          | Yes           |
+| Falcon1024 | Moderate  | \~1.8KB                         | \~1KB              | 2010s      | 2020s          | Yes           |
+
 ### What's the back of the envalope conclusion
 
 Falcon looks promising and has a smaller token size than Dilithium. Token size is important because of the 8k character limit on URLs, or the 4kb cookie limit.
