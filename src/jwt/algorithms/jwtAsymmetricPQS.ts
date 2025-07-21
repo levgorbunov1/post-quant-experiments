@@ -40,12 +40,10 @@ export const createPQCJWT = async (
 
   const { result: validSignature, time: verify_time } = await benchmark(`JWT verification with ${alg}`, () => impl.verify(signature, msg, publicKey));
 
-  const total_time = Number((keygen_time + sign_time + verify_time).toFixed(2));
-
   const encodedSig = base64urlEncode(signature);
   const token = `${signingInput}.${encodedSig}`; 
   const size = Buffer.byteLength(token, "utf8");
 
-  return { token, size, time: {keygen_time: keygen_time, sign_time: sign_time, verify_time: verify_time, total_time: total_time} };
+  return { token, size, time: { keygen_time: keygen_time, sign_time: sign_time, verify_time: verify_time, total_time: Number((keygen_time + sign_time + verify_time).toFixed(2)) } };
 };
 

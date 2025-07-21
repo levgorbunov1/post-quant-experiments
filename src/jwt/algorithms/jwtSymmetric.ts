@@ -2,6 +2,7 @@
 import crypto from "crypto";
 import type { Payload } from "../payload";
 import { base64urlEncode } from "../utils";
+import { syncBenchmark } from "../../benchmark";
 
 const sign = (input: string, secret: string): string => {
   return crypto
@@ -21,9 +22,11 @@ export const createHS256JWT = (
   const encodedHeader = base64urlEncode(JSON.stringify(header));
   const encodedPayload = base64urlEncode(JSON.stringify(payload));
   const signingInput = `${encodedHeader}.${encodedPayload}`;
-  const signature = sign(signingInput, secret);
+
+  const { result: signature, time: sign_time } = syncBenchmark("JWT signing with HS256", () => sign(signingInput, secret));
+
   const token = `${signingInput}.${signature}`;
   const size = Buffer.byteLength(token, "utf8");
 
-  return { token, size };
+  return { token, size, time: { sign_time: sign_time, verify_time: sign_time, total_time: Number((sign_time * 2).toFixed(2)) } };
 };

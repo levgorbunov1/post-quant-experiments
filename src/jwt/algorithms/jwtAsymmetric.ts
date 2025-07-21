@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import { base64urlEncode } from "../utils";
 import type { Payload } from "../payload";
+import { syncBenchmark } from "../../benchmark";
 
 const nodeAlgs: Record<"RS256" | "RS512" | "ES256" | "EdDSA", string> = {
   RS256: "RSA-SHA256",
@@ -11,7 +12,7 @@ const nodeAlgs: Record<"RS256" | "RS512" | "ES256" | "EdDSA", string> = {
 
 export const createAsymmetricJWT = (
   payload: Payload,
-  privateKey: string | Buffer,
+  keys: { privateKey: string | Buffer, publicKey: string | Buffer },
   alg: "RS256" | "RS512" | "ES256" | "EdDSA",
 ) => {
   const header = { alg, typ: "JWT" };
@@ -20,23 +21,27 @@ export const createAsymmetricJWT = (
   const signingInput = `${encodedHeader}.${encodedPayload}`;
 
   let signature: Buffer;
+  let sign_time: number;
+  let verified: boolean;
+  let verify_time: number;
+
   if (alg === "EdDSA") {
     // Ed25519: sign input directly, no hashing or padding
-    signature = crypto.sign(null, Buffer.from(signingInput), privateKey);
+    ({ result: signature, time: sign_time } = syncBenchmark(`JWT signing with ${alg}`, () => crypto.sign(null, Buffer.from(signingInput), keys.privateKey)));
+
+    ({result: verified, time: verify_time } = syncBenchmark(`JWT verification with ${alg}`, () => crypto.verify(null, Buffer.from(signingInput), keys.publicKey, signature)));
   } else {
     const nodeAlg = nodeAlgs[alg];
     if (!nodeAlg) throw new Error(`Unsupported algorithm: ${alg}`);
-    signature = crypto.sign(nodeAlg, Buffer.from(signingInput), {
-      key: privateKey,
-      padding: alg.startsWith("RS")
-        ? crypto.constants.RSA_PKCS1_PADDING
-        : undefined,
-    });
+
+    ({ result: signature, time: sign_time } = syncBenchmark(`JWT signing with ${alg}`, () => crypto.sign(nodeAlg, Buffer.from(signingInput), { key: keys.privateKey, padding: alg.startsWith("RS") ? crypto.constants.RSA_PKCS1_PADDING : undefined })));
+
+    ({result: verified, time: verify_time } = syncBenchmark(`JWT verification with ${alg}`, () => crypto.verify(nodeAlg, Buffer.from(signingInput), { key: keys.publicKey, padding: alg.startsWith("RS") ? crypto.constants.RSA_PKCS1_PADDING : undefined }, signature)));
   }
 
   const encodedSignature = base64urlEncode(signature);
   const token = `${signingInput}.${encodedSignature}`;
   const size = Buffer.byteLength(token, "utf8");
 
-  return { token, size };
+  return { token, size, time: {sign_time: sign_time, verify_time: verify_time} };
 };
