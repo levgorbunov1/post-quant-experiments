@@ -7,6 +7,7 @@ import F1024 from "@dashlane/pqc-sign-falcon-1024-node";
 import { base64urlEncode } from "../utils";
 import type { Payload } from "../payload";
 import type { PQCAlgorithm } from "./types";
+import { benchmark } from "../../benchmark";
 
 const getPQCImpl = (alg: PQCAlgorithm) => {
   const map = {
@@ -31,13 +32,20 @@ export const createPQCJWT = async (
 
   const msg = new TextEncoder().encode(signingInput);
   const impl = await getPQCImpl(alg)()
-  const { publicKey, privateKey } = await impl.keypair();
-  const { signature } = await impl.sign(msg, privateKey);
+
+  const { result: keypair, time: keygen_time } = await benchmark(`Generating keys with ${alg}`, () => impl.keypair());
+  const { publicKey, privateKey } = keypair
+
+  const { result: { signature }, time: sign_time } = await benchmark(`JWT signing with ${alg}`, () => impl.sign(msg, privateKey));
+
+  const { result: validSignature, time: verify_time } = await benchmark(`JWT verification with ${alg}`, () => impl.verify(signature, msg, publicKey));
+
+  const total_time = Number((keygen_time + sign_time + verify_time).toFixed(2));
 
   const encodedSig = base64urlEncode(signature);
-  const token = `${signingInput}.${encodedSig}`;
+  const token = `${signingInput}.${encodedSig}`; 
   const size = Buffer.byteLength(token, "utf8");
 
-  return { token, size };
+  return { token, size, time: {keygen_time: keygen_time, sign_time: sign_time, verify_time: verify_time, total_time: total_time} };
 };
 

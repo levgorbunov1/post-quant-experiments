@@ -7,7 +7,7 @@ export async function benchmark<T>(
   const start = performance.now();
   const result = await fn();
   const end = performance.now();
-  const time = end - start;
-  await log(`${label} took: ${time.toFixed(2)} ms`);
+  const time = Number((end - start).toFixed(2));
+  await log(`${label} took: ${time} ms`);
   return { result, time };
 }

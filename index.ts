@@ -48,6 +48,10 @@ const PQCResults = Promise.all(
       Algorithm: alg,
       "JWT byte length": `${algResults.size} Bytes`,
       Type: "PQS | Asymmetric",
+      "Keygen time": `${algResults.time.keygen_time}ms`,
+      "Sign time": `${algResults.time.sign_time}ms`,
+      "Verify time": `${algResults.time.verify_time}ms`,
+      "Total time": `${algResults.time.total_time}ms`
     };
   })
 );

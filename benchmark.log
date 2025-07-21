@@ -19,3 +19,18 @@
 [2025-03-24T16:47:20.440Z] JWT signing with RS512 took: 1.50 ms
 [2025-03-24T16:47:20.440Z] JWT verification with RS512 took: 0.33 ms
 [2025-03-24T16:47:20.441Z] =========================================
+[2025-07-21T13:00:02.604Z] Generating keys with Falcon1024 took: 47.06 ms
+[2025-07-21T13:00:02.608Z] Generating keys with Dilithium3 took: 1 ms
+[2025-07-21T13:00:02.612Z] Generating keys with Dilithium5 took: 1.18 ms
+[2025-07-21T13:00:02.626Z] Generating keys with Falcon512 took: 14.13 ms
+[2025-07-21T13:00:02.628Z] Generating keys with Dilithium2 took: 0.79 ms
+[2025-07-21T13:00:02.634Z] JWT signing with Falcon1024 took: 5.82 ms
+[2025-07-21T13:00:02.634Z] JWT signing with Dilithium5 took: 0.54 ms
+[2025-07-21T13:00:02.636Z] JWT signing with Dilithium3 took: 1.8 ms
+[2025-07-21T13:00:02.640Z] JWT signing with Dilithium2 took: 0.57 ms
+[2025-07-21T13:00:02.639Z] JWT signing with Falcon512 took: 2.85 ms
+[2025-07-21T13:00:02.640Z] JWT verification with Falcon1024 took: 0.17 ms
+[2025-07-21T13:00:02.642Z] JWT verification with Dilithium2 took: 0.23 ms
+[2025-07-21T13:00:02.640Z] JWT verification with Dilithium5 took: 0.39 ms
+[2025-07-21T13:00:02.642Z] JWT verification with Falcon512 took: 0.13 ms
+[2025-07-21T13:00:02.640Z] JWT verification with Dilithium3 took: 0.21 ms
