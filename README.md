@@ -56,3 +56,5 @@ Falcon looks promising and has a smaller token size than Dilithium. Token size i
 In terms of token generation speed, PQC algorithms seem to outperform pre-quantum algorithms, with the greatest difference coming from the key generation time. Out of the PQC algorithms, Dilithium is significantly faster than Falcon.
 
 We might be interested in a forward look in this area and ask if there are implications for the use of JWTs.
+
+test
